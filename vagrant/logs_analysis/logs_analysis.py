@@ -4,10 +4,15 @@ import psycopg2
 
 DBNAME = "news"
 
-query = """select title, name
-    from articles,
-    authors where
-    articles.author = authors.id;"""
+# What are the most popular three articles of all time?
+three_most_read =  """select articles.title, count(*) as num
+    from articles, log
+    where log.status like '%200%'
+    and log.path like concat('/article/', articles.slug)
+    group by articles.title, log.path order by  num desc limit 3"""
+
+queries = [three_most_read]
+
 
 
 
@@ -30,5 +35,6 @@ def make_query(query):
 
 
 if __name__ == "__main__":
-    results = make_query(query)
-    print results
+    for query in queries:
+        result = make_query(query)
+        print result
