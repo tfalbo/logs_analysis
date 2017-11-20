@@ -5,13 +5,26 @@ import psycopg2
 DBNAME = "news"
 
 # What are the most popular three articles of all time?
-three_most_read =  """select articles.title, count(*) as num
+most_popular_articles =  """select articles.title, count(*) as num
     from articles, log
     where log.status like '%200%'
     and log.path like concat('/article/', articles.slug)
     group by articles.title, log.path order by  num desc limit 3"""
 
-queries = [three_most_read]
+# Who are the most popular article authors of all time?
+most_popular_authors = """select authors.name, count(*) as num
+    from articles, authors, log
+    where log.status like '%200%'
+    and log.path like concat('/article/', articles.slug)
+    and articles.author = authors.id
+    group by authors.name order by  num desc;"""
+
+
+# On which days did more than 1% of requests lead to errors?
+most_errors = """select * from log
+                where status not like '%20%'"""
+
+queries = [most_popular_articles, most_popular_authors]
 
 
 
