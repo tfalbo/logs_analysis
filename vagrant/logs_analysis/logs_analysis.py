@@ -19,12 +19,22 @@ most_popular_authors = """select authors.name, count(*) as num
     and articles.author = authors.id
     group by authors.name order by  num desc;"""
 
-
 # On which days did more than 1% of requests lead to errors?
-most_errors = """select * from log
-                where status not like '%20%'"""
+most_errors = """select status, date(time),count (*) as num
+    from log group by status, date(time)
+    order by date desc;"""
 
-queries = [most_popular_articles, most_popular_authors]
+# Are there any errors when the correct slug is requested?
+errors_with_correct_slug = """
+    select articles.slug, log.status
+    from log, articles
+    where log.path like concat('/article/', articles.slug)
+    and log.status not like '%200%';
+    """
+
+
+
+queries = [most_popular_articles, most_popular_authors, most_errors, errors_with_correct_slug]
 
 
 
@@ -44,7 +54,6 @@ def make_query(query):
     c.execute(query)
     return c.fetchall()
     db.close()
-
 
 
 if __name__ == "__main__":
