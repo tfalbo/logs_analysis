@@ -8,14 +8,14 @@ DBNAME = "news"
 most_popular_articles = """select articles.title, count(*) as num
     from articles, log
     where log.status like '%200%'
-    and log.path like concat('/article/', articles.slug)
+    and log.path = concat('/article/', articles.slug)
     group by articles.title, log.path order by  num desc limit 3"""
 
 # Who are the most popular article authors of all time?
 most_popular_authors = """select authors.name, count(*) as num
     from articles, authors, log
     where log.status like '%200%'
-    and log.path like concat('/article/', articles.slug)
+    and log.path = concat('/article/', articles.slug)
     and articles.author = authors.id
     group by authors.name order by  num desc;"""
 
@@ -24,7 +24,7 @@ most_popular_authors = """select authors.name, count(*) as num
 errors_with_correct_slug = """
     select articles.slug, log.status
     from log, articles
-    where log.path like concat('/article/', articles.slug)
+    where log.path = concat('/article/', articles.slug)
     and log.status not like '%200%';
     """
 
