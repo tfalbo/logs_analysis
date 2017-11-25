@@ -30,9 +30,9 @@ errors_with_correct_slug = """
 
 
 queries = {
-    'What are the most popular three articles of all time?': most_popular_articles,
-    'Who are the most popular article authors of all time?': most_popular_authors,
-    'Are there any errors when the correct slug is requested?': errors_with_correct_slug
+    'Three most popular three articles of all time:': most_popular_articles,
+    'Three most popular article authors of all time:': most_popular_authors,
+    'Errors with correct slug:': errors_with_correct_slug
 }
 
 
@@ -42,7 +42,7 @@ def connect():
         db = psycopg2.connect(database=DBNAME)
         c = db.cursor()
         return db, c
-    except:
+    except Exception:
         "Unable to connect to database"
 
 
