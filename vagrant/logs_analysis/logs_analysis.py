@@ -56,10 +56,10 @@ def make_query(query):
 
 if __name__ == "__main__":
     for k, v in queries.items():
-        print k
+        print(k)
         res = make_query(v)
         if not res:
-            print 'No results'
+            print('No results')
         else:
             for i, j in make_query(v):
-                print i + ' - ' + str(j)
+                print(i + ' - ' + str(j))
