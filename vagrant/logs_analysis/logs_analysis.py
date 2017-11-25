@@ -29,8 +29,14 @@ errors_with_correct_slug = """
     """
 
 
-
-queries = [most_popular_articles, most_popular_authors, errors_with_correct_slug]
+queries = {
+     'What are the most popular three articles of all time?'
+        : most_popular_articles,
+     'Who are the most popular article authors of all time?'
+        : most_popular_authors,
+     'Are there any errors when the correct slug is requested?'
+        : errors_with_correct_slug
+     }
 
 
 
@@ -52,6 +58,11 @@ def make_query(query):
 
 
 if __name__ == "__main__":
-    for query in queries:
-        result = make_query(query)
-        print result
+    for k,v in queries.items():
+        print k
+        res = make_query(v)
+        if not res:
+            print 'No results'
+        else:
+            for i,j in make_query(v):
+                print i + ' - ' + str(j)
