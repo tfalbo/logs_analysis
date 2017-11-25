@@ -19,10 +19,6 @@ most_popular_authors = """select authors.name, count(*) as num
     and articles.author = authors.id
     group by authors.name order by  num desc;"""
 
-# On which days did more than 1% of requests lead to errors?
-most_errors = """select status, date(time),count (*) as num
-    from log group by status, date(time)
-    order by date desc;"""
 
 # Are there any errors when the correct slug is requested?
 errors_with_correct_slug = """
@@ -34,8 +30,7 @@ errors_with_correct_slug = """
 
 
 
-queries = [most_popular_articles, most_popular_authors, most_errors, errors_with_correct_slug]
-
+queries = [most_popular_articles, most_popular_authors, errors_with_correct_slug]
 
 
 
