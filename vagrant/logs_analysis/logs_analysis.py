@@ -43,7 +43,7 @@ percentage_of_errors = """
             t1.date = t2.date
         ) t3
       ) t4
-    where percent>=1.0;
+    where percent>1.0;
     """
 
 # Are there any errors when the correct slug is requested?
@@ -58,6 +58,7 @@ errors_with_correct_slug = """
 queries = {
     'Three most popular three articles of all time:': most_popular_articles,
     'Three most popular article authors of all time:': most_popular_authors,
+    'Days where percentage of error is greater than 1%': percentage_of_errors,
     'Errors with correct slug:': errors_with_correct_slug
 }
 
